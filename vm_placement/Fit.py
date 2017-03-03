@@ -11,7 +11,7 @@ class Fit:
     __metaclass__ = ABCMeta
 
     def __init__(self, number_bins, max_cpu, max_mem, csv_file):
-        """Apply the WorstFit Algorithm in the CSV file
+        """Apply the Fit Algorithm in the CSV file
 
         :param number_bins: number of bins that will be used
         :param max_cpu: max cpu capacity of all the bins together.
