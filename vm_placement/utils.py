@@ -11,8 +11,10 @@ def vm_from_csv_line(keys, csv_line, vm_id):
     csv_line = csv_line.replace("\n", "").replace('"', '').split(",")
     vm_dict = dict(zip(keys, csv_line))
 
-    return VM(vm_id, float(vm_dict.get("cpu_req")), float(vm_dict.get(
-        "memory_req")),vm_dict.get("end_time"), vm_dict.get("type"))
+    return VM(uuid=vm_id, cpu=float(vm_dict.get("cpu_req")),
+              mem=float(vm_dict.get("memory_req")),
+              start_time=vm_dict.get("time"),
+              end_time=vm_dict.get("end_time"), type_vm=vm_dict.get("type"))
 
 
 def keys_from_csv_head(csv_head):

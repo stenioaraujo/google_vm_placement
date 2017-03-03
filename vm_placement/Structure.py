@@ -5,7 +5,7 @@ class Bin:
         self.max_capa = {"cpu": cpu_capa, "mem": mem_capa}
 
     def add(self, vm):
-        if not self._fit(vm):
+        if not self.fit(vm):
             raise Exception("The Bin cannot fit the VM")
 
         self.vms[vm.uuid] = vm
@@ -15,7 +15,7 @@ class Bin:
         self.capacity["cpu"] += multiply_by * vm.cpu
         self.capacity["mem"] += multiply_by * vm.mem
 
-    def _fit(self, vm):
+    def fit(self, vm):
         fits_cpu = self.capacity["cpu"] + vm.cpu <= self.max_capa["cpu"]
         fits_mem = self.capacity["mem"] + vm.mem <= self.max_capa["mem"]
 
@@ -37,10 +37,11 @@ class Bin:
 
 
 class VM:
-    def __init__(self, uuid, cpu, mem, end_time, type_vm):
+    def __init__(self, uuid, cpu, mem, start_time, end_time, type_vm):
         self.uuid = uuid
         self.cpu = cpu
         self.mem = mem
+        self.start_time = start_time
         self.end_time = end_time
         self.type = type_vm
 
