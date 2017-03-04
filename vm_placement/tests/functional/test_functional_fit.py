@@ -1,6 +1,9 @@
+import os
 import unittest
 
 from vm_placement.Worst_fit import WorstFit
+
+TST_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class FunctionalTestFitReadingFile(unittest.TestCase):
@@ -9,7 +12,7 @@ class FunctionalTestFitReadingFile(unittest.TestCase):
         cls.number_bins = 2
         cls.max_cpu = 10.2
         cls.max_mem = 10.4
-        cls.csv_file = "data/test_task_events.csv"
+        cls.csv_file = os.path.join(TST_DIR, "data/test_task_events.csv")
         cls.number_of_vm_requests = cls._count_lines(cls.csv_file) - 1
 
         cls.worst_fit = WorstFit(number_bins=cls.number_bins,

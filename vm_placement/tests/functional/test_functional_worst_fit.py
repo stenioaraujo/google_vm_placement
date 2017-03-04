@@ -1,15 +1,18 @@
 import heapq
+import os
 import unittest
 
 from vm_placement.Worst_fit import WorstFit
 from vm_placement import utils
 
+TST_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 class FunctionalTestWorstFitAlgorithm(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.data1 = "data/test_task_events_deletion.csv"
-        cls.data2 = "data/test_task_events_fullness.csv"
+        cls.data1 = os.path.join(TST_DIR, "data/test_task_events_deletion.csv")
+        cls.data2 = os.path.join(TST_DIR, "data/test_task_events_fullness.csv")
 
         cls.worst_fit1 = WorstFit(number_bins=5, max_cpu=50, max_mem=50,
                                   csv_file=cls.data1)

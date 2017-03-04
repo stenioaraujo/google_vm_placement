@@ -20,3 +20,9 @@ Referente ao periodo **2016.2**
 
 #### Run the example
     python3 example_execution.py
+
+#### Run the tests
+From the root of the repository (**google_vm_placement**), run the following
+ command:
+
+    python3 -m unittest diccover -v

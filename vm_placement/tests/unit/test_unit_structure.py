@@ -18,7 +18,6 @@ class UnitTestStructureBin(unittest.TestCase):
 
         self.bin1.add(self.vm1)
         self.assertEqual(len(self.bin1.vms), 1)
-        print(self.bin1.vms)
         self.assertEqual(self.vm1, self.bin1.vms.get(self.vm1.uuid))
 
     def test_remove_vm(self):

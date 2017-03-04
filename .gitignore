@@ -1,3 +1,4 @@
-.idea/*
-*/*.pyc
-*/__pycache__
+.idea/
+*.pyc
+vm_placement/tests/functional/__pycache__/*
+vm_placement/__pycache__/

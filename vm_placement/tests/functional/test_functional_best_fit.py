@@ -1,15 +1,18 @@
-import unittest
 import heapq_max
+import os
+import unittest
 
 from vm_placement.Best_fit import BestFit
 from vm_placement import utils
+
+TST_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class FunctionalTestBestFitAlgorithm(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.data1 = "data/test_task_events_deletion.csv"
-        cls.data2 = "data/test_task_events_fullness.csv"
+        cls.data1 = os.path.join(TST_DIR, "data/test_task_events_deletion.csv")
+        cls.data2 = os.path.join(TST_DIR, "data/test_task_events_fullness.csv")
 
         cls.best_fit1 = BestFit(number_bins=5, max_cpu=50, max_mem=50,
                                 csv_file=cls.data1)
