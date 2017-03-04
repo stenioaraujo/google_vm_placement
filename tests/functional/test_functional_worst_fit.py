@@ -1,3 +1,4 @@
+import heapq
 import unittest
 
 from vm_placement.Worst_fit import WorstFit
@@ -23,10 +24,14 @@ class FunctionalTestWorstFitAlgorithm(unittest.TestCase):
     def test_order_of_occupied_bins_correct_for_worst_fit(self):
         for alg in self.algorithm_executions:
             last_cpu_capacity = 0
-            for bin_ in alg.occupied_bins:
+            temp_heap = []
+            while alg.occupied_bins:
+                bin_ = heapq.heappop(alg.occupied_bins)
                 cpu = bin_.capacity.get("cpu")
                 self.assertGreaterEqual(cpu, last_cpu_capacity)
                 last_cpu_capacity = cpu
+                heapq.heappush(temp_heap, bin_)
+            alg.occupied_bins = temp_heap
 
     def test_bins_with_vms_after_deletion(self):
         number_vms = 0
