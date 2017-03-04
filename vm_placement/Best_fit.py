@@ -25,25 +25,27 @@ class BestFit(Fit):
                     heapq_max.heappush_max(self.occupied_bins, temp_bin)
 
                 self.vm_bins[vm.uuid] = bin_
-                break
+                return True
             except:
                 continue
         else:
             self.occupied_bins = temp_heap
             if not self.bins:
                 self._reject(vm)
+                return False
             else:
                 bin_ = self.bins.pop()
                 bin_.add(vm)
                 heapq_max.heappush_max(self.occupied_bins, bin_)
                 self.vm_bins[vm.uuid] = bin_
+                return True
 
     def _remove_vms(self, vms_to_remove):
         for vm in vms_to_remove:
             bin_ = self.vm_bins.get(vm.uuid)
             if bin_:
                 del self.vm_bins[vm.uuid]
-                bin_.remove(vm)
+                bin_.remove(vm.uuid)
                 if bin_.is_empty():
                     self.occupied_bins.remove(bin_)
                     self.bins.append(bin_)

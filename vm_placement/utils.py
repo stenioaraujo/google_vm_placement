@@ -13,8 +13,9 @@ def vm_from_csv_line(keys, csv_line, vm_id):
 
     return VM(uuid=vm_id, cpu=float(vm_dict.get("cpu_req")),
               mem=float(vm_dict.get("memory_req")),
-              start_time=vm_dict.get("time"),
-              end_time=vm_dict.get("end_time"), type_vm=vm_dict.get("type"))
+              start_time=int(vm_dict.get("time")),
+              end_time=int(vm_dict.get("end_time")),
+              type_vm=vm_dict.get("type"))
 
 
 def keys_from_csv_head(csv_head):
@@ -42,3 +43,9 @@ def create_bins(number_bins, max_cpu_bins, max_mem_bins):
         bins.append(Bin(max_cpu_bins, max_mem_bins))
 
     return bins
+
+
+def concatenate_lists_generator(*lists):
+    for list_ in lists:
+        for item in list_:
+            yield item

@@ -28,6 +28,13 @@ class Bin:
     def is_empty(self):
         return sum(self.capacity.values()) < 1.0e-8
 
+    def free_space(self):
+        free = {
+            "cpu": self.max_capa.get("cpu") - self.capacity.get("cpu"),
+            "mem": self.max_capa.get("mem") - self.capacity.get("mem")
+        }
+        return free
+
     def __lt__(self, other):
         return self.capacity.get("cpu") < other.capacity.get("cpu")
 

@@ -16,20 +16,23 @@ class FirstFit(Fit):
                 if bin_ not in self._occupied_bins:
                     self._occupied_bins.add(bin_)
                     self.occupied_bins.append(bin_)
+                    self.bins.remove(bin_)
 
                 self.vm_bins[vm.uuid] = vm
-                break
+                return True
             except:
                 continue
         else:
             self._reject(vm)
+            return False
 
     def _remove_vms(self, vms_to_remove):
         for vm in vms_to_remove:
             bin_ = self.vm_bins.get(vm.uuid)
             if bin_:
                 del self.vm_bins[vm.uuid]
-                bin_.remove(vm)
+                bin_.remove(vm.uuid)
                 if bin_.is_empty():
                     self.occupied_bins.remove(bin_)
                     self._occupied_bins.remove(bin_)
+                    self.bins.append(bin_)
