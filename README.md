@@ -25,4 +25,4 @@ Referente ao periodo **2016.2**
 From the root of the repository (**google_vm_placement**), run the following
  command:
 
-    python3 -m unittest diccover -v
+    python3 -m unittest discover -v
