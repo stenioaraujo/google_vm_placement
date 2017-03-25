@@ -41,7 +41,8 @@ def run_experiment_for(algorithm):
     print("%(algorithm)s,%(max_cpu)s,%(max_mem)s,%(max_cpu_per_bin)s,"
           "%(max_mem_per_bin)s,%(number_bins)s,%(number_occupied_bins)s,"
           "%(number_of_allocated_vms)s,%(number_of_rejected_vms)s,"
-          "%(number_of_deleted_vms)s,%(fragmentation)s" % to_string)
+          "%(number_of_deleted_vms)s,%(fragmentation_cpu)s,"
+          "%(fragmentation_mem)s" % to_string)
 
 kwargs = {
     "number_bins": number_bins,

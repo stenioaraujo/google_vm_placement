@@ -127,7 +127,8 @@ class Fit:
             "number_of_allocated_vms": len(self.vm_bins),
             "number_of_rejected_vms": len(self.rejected_vms),
             "number_of_deleted_vms": len(self.deleted_vms),
-            "fragmentation": self.fragmentation()
+            "fragmentation_cpu": self.fragmentation().get("cpu"),
+            "fragmentation_mem": self.fragmentation().get("mem")
         }
         return output
 
