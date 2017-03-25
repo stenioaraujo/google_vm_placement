@@ -31,6 +31,7 @@ class Fit:
         self.vm_bins = {}
         self.number_successful_allocated_vms = 0
         self.rejected_vms = []
+        self.deleted_vms = []
         self.csv_file = csv_file
         self.vms_end_times = {}
         self.end_times = []
@@ -111,10 +112,11 @@ class Fit:
             end_time_to_delete = heapq.heappop(self.end_times)
             if self.vms_end_times.get(end_time_to_delete):
                 vms_to_remove = self.vms_end_times.get(end_time_to_delete, [])
+                self.deleted_vms.extend(vms_to_remove)
                 self._remove_vms(vms_to_remove)
                 del self.vms_end_times[end_time_to_delete]
 
-    def __str__(self):
+    def to_string_object(self):
         output = {
             "max_cpu": self.max_cpu,
             "max_mem": self.max_mem,
@@ -124,6 +126,10 @@ class Fit:
             "number_occupied_bins": len(self.occupied_bins),
             "number_of_allocated_vms": len(self.vm_bins),
             "number_of_rejected_vms": len(self.rejected_vms),
+            "number_of_deleted_vms": len(self.deleted_vms),
             "fragmentation": self.fragmentation()
         }
-        return str(output)
+        return output
+
+    def __str__(self):
+        return str(self.to_string_object())
