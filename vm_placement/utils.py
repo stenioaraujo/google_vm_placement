@@ -13,8 +13,8 @@ def vm_from_csv_line(keys, csv_line, vm_id):
 
     return VM(uuid=vm_id, cpu=float(vm_dict.get("cpu_req")),
               mem=float(vm_dict.get("memory_req")),
-              start_time=int(vm_dict.get("time")),
-              end_time=int(vm_dict.get("end_time")),
+              start_time=int(float(vm_dict.get("time"))),
+              end_time=int(float(vm_dict.get("end_time"))),
               type_vm=vm_dict.get("type"))
 
 

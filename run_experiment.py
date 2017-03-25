@@ -5,7 +5,7 @@ from vm_placement.First_fit import FirstFit
 from vm_placement.Best_fit import BestFit
 
 
-args = sys.argv[1].spli(",")
+args = sys.argv[1].split(",")
 
 if len(args) != 4:
     raise Exception("Expecting the parameters: algorithm[ff,bf,wf], "
