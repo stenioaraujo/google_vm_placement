@@ -35,6 +35,6 @@ the inputs that will be used by the file **run_all_experiments.sh**.
 
 Once you have the **experiment_inputs.txt** filled up with the inputs for the experiment, you may run it:
 
-    ./run_all_experiments.py
+    ./run_all_experiments.sh
 
 The script will save the results in **experiment_results.csv**
