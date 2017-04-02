@@ -37,18 +37,19 @@ def run_experiment_for(algorithm):
 
     to_string = algorithm.to_string_object()
     to_string["algorithm"] = args[0]
+    to_string["vm_size"] = args[3]
 
     print("%(algorithm)s,%(max_cpu)s,%(max_mem)s,%(max_cpu_per_bin)s,"
           "%(max_mem_per_bin)s,%(number_bins)s,%(number_occupied_bins)s,"
           "%(number_of_allocated_vms)s,%(number_of_rejected_vms)s,"
           "%(number_of_deleted_vms)s,%(fragmentation_cpu)s,"
-          "%(fragmentation_mem)s" % to_string)
+          "%(fragmentation_mem)s,%(vm_size)s" % to_string)
 
 kwargs = {
     "number_bins": number_bins,
     "max_cpu": number_bins*bin_cpu_size,
     "max_mem": number_bins*bin_mem_size,
-    "csv_file": data_source.get(args[3])
+    "csv_file": data_source.get(args[3]),
 }
 
 run_experiment_for(Algorithm(**kwargs))

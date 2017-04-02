@@ -1,0 +1,122 @@
+---
+title: "Google VM Placement"
+author: 
+  - Stenio Araujo
+  - Brendha Cruz
+institute: "Metodologia Cientifica 2016.2 | UFCG"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(readr)
+library(resample)
+library(stringr)
+```
+
+# Factors and Dependet Variables
+## Factors
+Factor: Algorithm  
+Levels:  
+
+- Best Fit-based (BF)
+- First Fit (FF)
+- Worst Fit-based (WF)
+
+Factor: Available resource on servers  
+Levels:  
+
+- 5.0 CPU and 9.6 MEM
+- 2.5 CPU and 4.8 MEM
+- 1.0 CPU and 1.9 MEM
+
+Factor: Requested resource by VM  
+Levels:  
+
+- Normal
+- Large
+
+## Dependent Variables
+- Denied requests (When it is not possible to allocate a VM request)
+- Fragmentation
+
+# Reading the data
+```{r message=FALSE}
+experiment_results = read_csv("../experiment_results.csv")
+```
+
+# Plot for the depenent variable Denied Requests
+```{r fig.width=10}
+algorithm =
+  ggplot(experiment_results,
+         aes(algorithm, number_of_rejected_vms)) +
+  geom_point() +
+  geom_text(aes(label=number_of_rejected_vms), hjust=-0.2, vjust=.5) +
+  theme_grey(base_size = 18) +
+  xlab("Algoritimo") + ylab("Número de requisições negadas")
+algorithm
+
+cpu_mem = experiment_results %>%
+  mutate(cpu_mem = paste(max_cpu_per_bin, "CPU", max_mem_per_bin, "MEM"))
+available_resources =
+  ggplot(cpu_mem,
+         aes(cpu_mem, number_of_rejected_vms)) +
+  geom_point() +
+  geom_text(aes(label=number_of_rejected_vms),
+            hjust=-0.2, vjust=.5, check_overlap = TRUE) +
+  theme_grey(base_size = 18) +
+  xlab("Tamanho da Máquina Servidor") + ylab("Número de requisições negadas")
+available_resources
+
+requested_resource =
+  ggplot(experiment_results,
+         aes(vm_size, number_of_rejected_vms)) +
+  geom_point() +
+  geom_text(aes(label=number_of_rejected_vms),
+            hjust=-0.2, vjust=.5, check_overlap = TRUE) +
+  theme_grey(base_size = 18) +
+  xlab("Tamanho da VM") + ylab("Número de requisições negadas")
+requested_resource
+```
+
+# Plot for the depenent variable Fragmentation
+```{r fig.width=10}
+avg_frag = experiment_results %>%
+  mutate(avg_fragmentation = fragmentation_cpu/2.0 + fragmentation_mem/2.0)
+
+algorithm =
+  ggplot(avg_frag,
+         aes(algorithm, avg_fragmentation)) +
+  geom_point() +
+  geom_text(aes(label=avg_fragmentation),
+            hjust=-0.2, vjust=.5, check_overlap = TRUE) +
+  theme_grey(base_size = 18) +
+  xlab("Algoritimo") + ylab("Fragmentação média")
+algorithm
+
+cpu_mem = avg_frag %>%
+  mutate(cpu_mem = paste(max_cpu_per_bin, "CPU", max_mem_per_bin, "MEM"))
+available_resources =
+  ggplot(cpu_mem,
+         aes(cpu_mem, avg_fragmentation)) +
+  geom_point() +
+  geom_text(aes(label=avg_fragmentation),
+            hjust=-0.2, vjust=.5, check_overlap = TRUE) +
+  theme_grey(base_size = 18) +
+  xlab("Tamanho da Máquina Servidor") + ylab("Fragmentação média")
+available_resources
+
+requested_resource =
+  ggplot(avg_frag,
+         aes(vm_size, avg_fragmentation)) +
+  geom_point() +
+  geom_text(aes(label=avg_fragmentation),
+            hjust=-0.2, vjust=.5, check_overlap = TRUE) +
+  theme_grey(base_size = 18) +
+  xlab("Tamanho da VM") + ylab("Fragmentação média")
+requested_resource
+```
